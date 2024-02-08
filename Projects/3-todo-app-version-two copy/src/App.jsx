@@ -7,7 +7,7 @@ function App() {
   const [count, setCount] = useState(0);
   const todoItems = [
     {
-      name: "Buy Milk",
+      name: "Dye Milk",
       dueDate: "10/10/2023",
     },
     {
