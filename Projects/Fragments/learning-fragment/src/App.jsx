@@ -6,38 +6,31 @@ import FoodInput from "../Components/FoodInput";
 import Container from "../Components/Container";
 
 function App() {
-  let fooditems = [
-    "sabzi",
-    "Green Veg",
-    "roti",
-    "Milk",
-    "ghe",
-    "hee",
-    "ee",
-    "bghee",
-  ];
-  const handleOnChange = (event)=>{
-    console.log(event.target.value);
+  
+
+  let [fooditems,setFoodItems] = useState ([]);
+
+
+
+  const onKeyDown = (event)=>{
+    if(event.key==='Enter'){
+      let newFoodItem = event.target.value;
+      event.target.value="";
+      let newItems = [...fooditems,newFoodItem];
+      setFoodItems(newItems);
+      console.log('New food item: ' +newFoodItem);
+    }
   };
   
-  // let fooditems = [];
-  const [count, setCount] = useState(0);
 
   return (
     <>
       <Container>
         <h1 className="food-heading">Healthy Food</h1>
+        <FoodInput handleKeyDown={onKeyDown}></FoodInput>
         <ErrorMessage item={fooditems}></ErrorMessage>
-        <FoodInput handleOnChange={handleOnChange}></FoodInput>
         <Fooditems item={fooditems}></Fooditems>
       </Container>
-      {/* <Container>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae
-          labore maxime sapiente cupiditate vero laborum est id. Ex aliquid vero
-          nisi repellat iusto, et inventore dolore amet nemo natus rerum.
-        </p>
-      </Container> */}
     </>
   );
 }
