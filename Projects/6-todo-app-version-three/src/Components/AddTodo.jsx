@@ -1,32 +1,31 @@
-import { useState,useRef } from "react";
-import { IoAdd } from "react-icons/io5";
+import { useContext, useRef, useState } from "react";
+//import { IoAdd } from "react-icons/io5";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-function AddTodo({ onNewItem }) {
-  const [todoName, setTodoName] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const noOfUpdates = useRef(0);
+function AddTodo() {
+  const { addNewItem } = useContext(TodoItemsContext);
+  const [todoName, setTodoName] = useState();
+  const [dueDate, setDueDate] = useState();
+
   const handleNameChange = (event) => {
     setTodoName(event.target.value);
-    noOfUpdates.current += 1;
   };
   const handleDateChange = (event) => {
-    setDueDate(event.target.value);
-    console.log(`no of updates are : ${noOfUpdates.current}`)
+    setDueDate (event.target.value);
   };
-  const handleAddButtonClicked = (event) => {
-    event.preventDefault();
-     onNewItem(todoName, dueDate);
-     setTodoName("");
-     setDueDate("");
+  const handleAddButtonClicked = () => {
+    addNewItem(todoName, dueDate);
+    setDueDate("");
+    setTodoName("");
   };
 
   return (
     <div className="container text-center">
-      <form className="row kg-row" onSubmit={handleAddButtonClicked}>
+      <div className="row kg-row">
         <div className="col-6">
           <input
             type="text"
-            placeholder="Enter todo here"
+            placeholder="Enter Todo Here"
             value={todoName}
             onChange={handleNameChange}
           />
@@ -36,14 +35,14 @@ function AddTodo({ onNewItem }) {
         </div>
         <div className="col-2">
           <button
-            type="submit"
+            type="button"
             className="btn btn-success kg-button"
-            
+            onClick={handleAddButtonClicked}
           >
-            <IoAdd />
+            Add
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
